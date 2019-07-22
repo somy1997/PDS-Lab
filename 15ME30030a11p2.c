@@ -1,0 +1,60 @@
+//NISHANT BARANWAL SOMY
+//15ME30030
+
+#include <stdio.h>
+#include <malloc.h>
+
+struct node
+{
+	int i;
+	struct node* next;
+};
+
+void print_linked_list(struct node* header)
+{
+	while(header!=NULL)
+	{
+		printf("%d\n",header->i);
+		header=header->next;
+	}
+
+}
+
+void reverse(struct node *header)
+{
+	struct node * t1=header, * t2=t1->next, * t3=t2->next;
+	printf("Printing all the numbers :\n");
+	print_linked_list(header);
+	while(t3!=NULL)
+	{
+	t2->next=t1;
+	t1=t2;
+	t2=t3;
+	t3=t3->next;
+	}
+	t2->next=t1;
+	header->next=NULL;
+	header=t2;
+	printf("Printing all the numbers after reversing :\n");
+	print_linked_list(header);
+}
+
+main()
+{
+	struct node * header=NULL;
+	struct node * temp=NULL;
+	int i;
+	printf("Please enter 5 integers to be reversed :\n");
+	temp=header=(struct node *)malloc(sizeof(struct node));
+	scanf("%d",&(temp->i));
+	fflush(stdin);
+	for(i=0;i<4;i++)
+	{
+		temp->next=(struct node *)malloc(sizeof(struct node));
+		temp=temp->next;
+		scanf("%d",&temp->i);
+		fflush(stdin);
+	}
+	temp->next=NULL;
+	reverse(header);
+}
