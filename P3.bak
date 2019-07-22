@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <malloc.h>
+
+struct n
+{
+	int i;
+	struct n* next;
+};
+
+void print_middle(struct n *header)
+{
+	printf("Printing middle node :\n");
+	int i,n=0;
+	struct n* temp=header;
+	while(temp!=NULL)
+	{
+	temp=temp->next;
+	n++;
+	}
+	for(i=0;i<n/2;i++)
+		header=header->next;
+	printf("%d\n",header->i);
+printf("%d\n",n);
+}
+
+main()
+{
+	struct n * header=NULL;
+	struct n * temp=NULL;
+	int i,n;
+	printf("Please enter no. (<=10) of integers :\n");
+	scanf("%d",&n);
+	fflush(stdin);
+	printf("Please enter the integers :\n");
+	temp=header=(struct n *)malloc(sizeof(struct n));
+	scanf("%d",&(temp->i));
+	fflush(stdin);
+	for(i=0;i<n-1;i++)
+	{
+		temp->next=(struct n *)malloc(sizeof(struct n));
+		temp=temp->next;
+		scanf("%d",&temp->i);
+		fflush(stdin);
+	}
+	temp->next=NULL;
+	printf("Printing all the numbers :\n");
+	temp=header;
+	while(temp!=NULL)
+	{
+		printf("%d\n",temp->i);
+		temp=temp->next;
+	}
+	print_middle(header);
+}

@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <malloc.h>
+
+struct n
+{
+	int i;
+	struct n* next;
+};
+
+void removeDups(struct n *header)
+{
+	int dup,t;
+	struct n *temp=NULL;
+	while(header->next!=NULL)
+	{
+		dup=header->i;
+		t=header->next->i;
+		while(t==dup)
+		{
+			 temp=header->next;
+			 header->next=header->next->next;
+			 free(temp);
+			 t=header->next->i;
+		}
+	}
+}
+
+main()
+{
+	struct n *header=NULL,*temp=NULL;
+	int i;
+	printf("Please enter 8 integers in non-decreasing order :\n");
+	temp=header=(struct n *)malloc(sizeof(struct n));
+	scanf("%d",&(temp->i));
+	for(i=0;i<7;i++)
+	{
+		temp->next=(struct n *)malloc(sizeof(struct n));
+		temp=temp->next;
+		scanf("%d",&temp->i);
+	}
+	temp->next=NULL;
+	printf("Printing all the numbers :\n");
+	temp=header;
+	while(temp!=NULL)
+	{
+		printf("%d\n",temp->i);
+		temp=temp->next;
+	}
+	removeDups(header);
+	printf("Printing all the numbers after removing duplicates :\n");
+	temp=header;
+	while(temp!=NULL)
+	{
+		printf("%d\n",temp->i);
+		temp=temp->next;
+	}
+}
